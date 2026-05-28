@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>WebSocket协议介绍 | 小园香径</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="WebSocket协议一、内容概览WebSocket的出现，使得浏览器具备了实时双向通信的能力。 二、什么是WebSocketHTML5开始提供的一种浏览器与服务器进行全双工通讯的网络技术，属于应用层协议。它基于TCP传输协议，并复用HTTP的握手通道。 对大部分web开发者来说，上面这段描述有点枯燥，其实只要记住几点：  WebSocket可以在浏览器里使用 支持双向通信 使用很简单  1、有哪">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebSocket协议介绍">
+<meta property="og:url" content="https://bzw875.github.io/2020/08/27/websocket/index.html">
+<meta property="og:site_name" content="小园香径">
+<meta property="og:description" content="WebSocket协议一、内容概览WebSocket的出现，使得浏览器具备了实时双向通信的能力。 二、什么是WebSocketHTML5开始提供的一种浏览器与服务器进行全双工通讯的网络技术，属于应用层协议。它基于TCP传输协议，并复用HTTP的握手通道。 对大部分web开发者来说，上面这段描述有点枯燥，其实只要记住几点：  WebSocket可以在浏览器里使用 支持双向通信 使用很简单  1、有哪">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-27T06:45:03.000Z">
+<meta property="article:modified_time" content="2020-08-27T06:45:03.000Z">
+<meta property="article:author" content="小园香径">
+<meta property="article:tag" content="网络">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="小园香径" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">小园香径</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">小园香径 博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://bzw875.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-websocket" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/08/27/websocket/" class="article-date">
+  <time class="dt-published" datetime="2020-08-27T06:45:03.000Z" itemprop="datePublished">2020-08-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      WebSocket协议介绍
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="WebSocket协议"><a href="#WebSocket协议" class="headerlink" title="WebSocket协议"></a>WebSocket协议</h1><h2 id="一、内容概览"><a href="#一、内容概览" class="headerlink" title="一、内容概览"></a>一、内容概览</h2><p>WebSocket的出现，使得浏览器具备了实时双向通信的能力。</p>
+<h2 id="二、什么是WebSocket"><a href="#二、什么是WebSocket" class="headerlink" title="二、什么是WebSocket"></a>二、什么是WebSocket</h2><p>HTML5开始提供的一种浏览器与服务器进行全双工通讯的网络技术，属于应用层协议。它基于TCP传输协议，并复用HTTP的握手通道。</p>
+<p>对大部分web开发者来说，上面这段描述有点枯燥，其实只要记住几点：</p>
+<ul>
+<li>WebSocket可以在浏览器里使用</li>
+<li>支持双向通信</li>
+<li>使用很简单</li>
+</ul>
+<h4 id="1、有哪些优点"><a href="#1、有哪些优点" class="headerlink" title="1、有哪些优点"></a>1、有哪些优点</h4><p>说到优点，这里的对比参照物是HTTP协议，概括地说就是：支持双向通信，更灵活，更高效，可扩展性更好。</p>
+<ul>
+<li>支持双向通信，实时性更强。</li>
+<li>更好的二进制支持。</li>
+<li>较少的控制开销。连接创建后，ws客户端、服务端进行数据交换时，协议控制的数据包头部较小。在不包含头部的情况下，服务端到客户端的包头只有2~10字节（取决于数据包长度），客户端到服务端的的话，需要加上额外的4字节的掩码。而HTTP协议每次通信都需要携带完整的头部。</li>
+<li>支持扩展。ws协议定义了扩展，用户可以扩展协议，或者实现自定义的子协议。（比如支持自定义压缩算法等）<br>对于后面两点，没有研究过WebSocket协议规范的同学可能理解起来不够直观，但不影响对WebSocket的学习和使用。</li>
+</ul>
+<h2 id="三、入门例子"><a href="#三、入门例子" class="headerlink" title="三、入门例子"></a>三、入门例子</h2><p>在正式介绍协议细节前，先来看一个简单的例子，有个直观感受。例子包括了WebSocket服务端、WebSocket客户端（网页端）。完整代码可以在 这里 找到。</p>
+<p>这里服务端用了ws这个库。相比大家熟悉的socket.io，ws实现更轻量，更适合学习的目的。</p>
+<h4 id="1、服务端"><a href="#1、服务端" class="headerlink" title="1、服务端"></a>1、服务端</h4><p>代码如下，监听8080端口。当有新的连接请求到达时，打印日志，同时向客户端发送消息。当收到到来自客户端的消息时，同样打印日志。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> app = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>)();</span><br><span class="line"><span class="keyword">var</span> server = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>).<span class="title class_">Server</span>(app);</span><br><span class="line"><span class="keyword">var</span> <span class="title class_">WebSocket</span> = <span class="built_in">require</span>(<span class="string">&#x27;ws&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> wss = <span class="keyword">new</span> <span class="title class_">WebSocket</span>.<span class="title class_">Server</span>(&#123; <span class="attr">port</span>: <span class="number">8080</span> &#125;);</span><br><span class="line"></span><br><span class="line">wss.<span class="title function_">on</span>(<span class="string">&#x27;connection&#x27;</span>, <span class="keyword">function</span> <span class="title function_">connection</span>(<span class="params">ws</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;server: receive connection.&#x27;</span>);</span><br><span class="line">    </span><br><span class="line">    ws.<span class="title function_">on</span>(<span class="string">&#x27;message&#x27;</span>, <span class="keyword">function</span> <span class="title function_">incoming</span>(<span class="params">message</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;server: received: %s&#x27;</span>, message);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    ws.<span class="title function_">send</span>(<span class="string">&#x27;world&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>, <span class="keyword">function</span> (<span class="params">req, res</span>) &#123;</span><br><span class="line">  res.<span class="title function_">sendfile</span>(__dirname + <span class="string">&#x27;/index.html&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3000</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="2、客户端"><a href="#2、客户端" class="headerlink" title="2、客户端"></a>2、客户端</h4><p>代码如下，向8080端口发起WebSocket连接。连接建立后，打印日志，同时向服务端发送消息。接收到来自服务端的消息后，同样打印日志。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ws = <span class="keyword">new</span> <span class="title class_">WebSocket</span>(<span class="string">&#x27;ws://localhost:8080&#x27;</span>);</span><br><span class="line">ws.<span class="property">onopen</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;ws onopen&#x27;</span>);</span><br><span class="line">  ws.<span class="title function_">send</span>(<span class="string">&#x27;from client: hello&#x27;</span>);</span><br><span class="line">&#125;;</span><br><span class="line">ws.<span class="property">onmessage</span> = <span class="keyword">function</span> (<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;ws onmessage&#x27;</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;from server: &#x27;</span> + e.<span class="property">data</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="3、运行结果"><a href="#3、运行结果" class="headerlink" title="3、运行结果"></a>3、运行结果</h4><p>可分别查看服务端、客户端的日志，这里不展开。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">服务端输出：</span><br><span class="line"></span><br><span class="line">server: receive connection.</span><br><span class="line">server: received hello</span><br><span class="line">客户端输出：</span><br><span class="line"></span><br><span class="line">client: ws connection is open</span><br><span class="line">client: received world</span><br></pre></td></tr></table></figure>
+<h2 id="四、如何建立连接"><a href="#四、如何建立连接" class="headerlink" title="四、如何建立连接"></a>四、如何建立连接</h2><p>前面提到，WebSocket复用了HTTP的握手通道。具体指的是，客户端通过HTTP请求与WebSocket服务端协商升级协议。协议升级完成后，后续的数据交换则遵照WebSocket的协议。</p>
+<h4 id="1、客户端：申请协议升级"><a href="#1、客户端：申请协议升级" class="headerlink" title="1、客户端：申请协议升级"></a>1、客户端：申请协议升级</h4><p>首先，客户端发起协议升级请求。可以看到，采用的是标准的HTTP报文格式，且只支持GET方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GET / HTTP/1.1</span><br><span class="line">Host: localhost:8080</span><br><span class="line">Origin: http://127.0.0.1:3000</span><br><span class="line">Connection: Upgrade</span><br><span class="line">Upgrade: websocket</span><br><span class="line">Sec-WebSocket-Version: 13</span><br><span class="line">Sec-WebSocket-Key: w4v7O6xFTi36lq3RNcgctw==</span><br></pre></td></tr></table></figure>
+<p>重点请求首部意义如下：</p>
+<ul>
+<li>Connection: Upgrade：表示要升级协议</li>
+<li>Upgrade: websocket：表示要升级到websocket协议。</li>
+<li>Sec-WebSocket-Version: 13：表示websocket的版本。如果服务端不支持该版本，需要返回一个Sec-WebSocket-Versionheader，里面包含服务端支持的版本号。</li>
+<li>Sec-WebSocket-Key：与后面服务端响应首部的Sec-WebSocket-Accept是配套的，提供基本的防护，比如恶意的连接，或者无意的连接。</li>
+</ul>
+<blockquote>
+<p>注意，上面请求省略了部分非重点请求首部。由于是标准的HTTP请求，类似Host、Origin、Cookie等请求首部会照常发送。在握手阶段，可以通过相关请求首部进行 安全限制、权限校验等。</p>
+</blockquote>
+<h4 id="2、服务端：响应协议升级"><a href="#2、服务端：响应协议升级" class="headerlink" title="2、服务端：响应协议升级"></a>2、服务端：响应协议升级</h4><p>服务端返回内容如下，状态代码101表示协议切换。到此完成协议升级，后续的数据交互都按照新的协议来。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 101 Switching Protocols</span><br><span class="line">Connection:Upgrade</span><br><span class="line">Upgrade: websocket</span><br><span class="line">Sec-WebSocket-Accept: Oy4NRAQ13jhfONC7bP8dTKb4PTU=</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>备注：每个header都以\r\n结尾，并且最后一行加上一个额外的空行\r\n。此外，服务端回应的HTTP状态码只能在握手阶段使用。过了握手阶段后，就只能采用特定的错误码。</p>
+</blockquote>
+<h4 id="3、Sec-WebSocket-Accept的计算"><a href="#3、Sec-WebSocket-Accept的计算" class="headerlink" title="3、Sec-WebSocket-Accept的计算"></a>3、Sec-WebSocket-Accept的计算</h4><p>Sec-WebSocket-Accept根据客户端请求首部的Sec-WebSocket-Key计算出来。</p>
+<p>计算公式为：</p>
+<p>将Sec-WebSocket-Key跟258EAFA5-E914-47DA-95CA-C5AB0DC85B11拼接。<br>通过SHA1计算出摘要，并转成base64字符串。<br>伪代码如下：</p>
+<blockquote>
+<p>toBase64( sha1( Sec-WebSocket-Key + 258EAFA5-E914-47DA-95CA-C5AB0DC85B11 )  )<br>验证下前面的返回结果：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> crypto = <span class="built_in">require</span>(<span class="string">&#x27;crypto&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> magic = <span class="string">&#x27;258EAFA5-E914-47DA-95CA-C5AB0DC85B11&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> secWebSocketKey = <span class="string">&#x27;w4v7O6xFTi36lq3RNcgctw==&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> secWebSocketAccept = crypto.<span class="title function_">createHash</span>(<span class="string">&#x27;sha1&#x27;</span>)</span><br><span class="line">    .<span class="title function_">update</span>(secWebSocketKey + magic)</span><br><span class="line">    .<span class="title function_">digest</span>(<span class="string">&#x27;base64&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(secWebSocketAccept);</span><br><span class="line"><span class="comment">// Oy4NRAQ13jhfONC7bP8dTKb4PTU=</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://bzw875.github.io/2020/08/27/websocket/" data-id="cmpos9ehb0014g68q7r3xbnj8" data-title="WebSocket协议介绍" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/08/cache-static-file/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          静态文件缓存方案
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/05/04/code-specifications/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">前端代码规范和最佳实践</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/" rel="tag">aws</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag">云计算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E5%85%A8/" rel="tag">安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-leetcode/" rel="tag">算法 leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/" rel="tag">计算机科学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%90%E7%BB%B4/" rel="tag">运维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%85%E8%AF%BB/" rel="tag">阅读</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BB%91%E5%AE%A2/" rel="tag">黑客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">云计算</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%AE%89%E5%85%A8/" style="font-size: 10px;">安全</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 10px;">性能优化</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95-leetcode/" style="font-size: 15px;">算法 leetcode</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/" style="font-size: 20px;">计算机科学</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 15px;">运维</a> <a href="/tags/%E9%98%85%E8%AF%BB/" style="font-size: 15px;">阅读</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a> <a href="/tags/%E9%BB%91%E5%AE%A2/" style="font-size: 10px;">黑客</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">九月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/11/21/article_rag_intro/">RAG 是什么</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/06/aws-cdk/">记一段aws开发运维的工作</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/17/common-algorithm/">常见算法</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/09/Writing-code-front-end/">前端面试写代码题</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/30/csapp-homework/">深入理解计算机系统（csapp）作业解答</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 小园香径<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>记一段aws开发运维的工作 | 小园香径</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="我2024年入职了一家外企做开发运维，大概是美国的代码部署到中国。这个外企全套亚马逊云(aws)。我入职的时候什么是Lambda都不知道，也算是积累了宝贵的经验。 aws 常见资源和说明 EC2 Instances（EC2 实例）：Amazon Elastic Compute Cloud (EC2) 提供的虚拟服务器实例。 S3 Buckets（S3 存储桶）：Amazon Simple Stor">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一段aws开发运维的工作">
+<meta property="og:url" content="https://bzw875.github.io/2024/07/06/aws-cdk/index.html">
+<meta property="og:site_name" content="小园香径">
+<meta property="og:description" content="我2024年入职了一家外企做开发运维，大概是美国的代码部署到中国。这个外企全套亚马逊云(aws)。我入职的时候什么是Lambda都不知道，也算是积累了宝贵的经验。 aws 常见资源和说明 EC2 Instances（EC2 实例）：Amazon Elastic Compute Cloud (EC2) 提供的虚拟服务器实例。 S3 Buckets（S3 存储桶）：Amazon Simple Stor">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-06T04:00:11.000Z">
+<meta property="article:modified_time" content="2024-07-06T04:00:11.000Z">
+<meta property="article:author" content="小园香径">
+<meta property="article:tag" content="aws">
+<meta property="article:tag" content="云计算">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="小园香径" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">小园香径</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">小园香径 博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://bzw875.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-aws-cdk" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/07/06/aws-cdk/" class="article-date">
+  <time class="dt-published" datetime="2024-07-06T04:00:11.000Z" itemprop="datePublished">2024-07-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      记一段aws开发运维的工作
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>我2024年入职了一家外企做开发运维，大概是美国的代码部署到中国。这个外企全套亚马逊云(aws)。我入职的时候什么是Lambda都不知道，也算是积累了宝贵的经验。</p>
+<h2 id="aws-常见资源和说明"><a href="#aws-常见资源和说明" class="headerlink" title="aws 常见资源和说明"></a>aws 常见资源和说明</h2><ul>
+<li>EC2 Instances（EC2 实例）：Amazon Elastic Compute Cloud (EC2) 提供的虚拟服务器实例。</li>
+<li>S3 Buckets（S3 存储桶）：Amazon Simple Storage Service (S3) 提供的对象存储桶。</li>
+<li>RDS Databases（RDS 数据库）：Amazon Relational Database Service (RDS) 提供的托管关系型数据库实例。</li>
+<li>Lambda Functions（Lambda 函数）：AWS Lambda 提供的无服务器函数。</li>
+<li>LAM Users（IAM 用户）：AWS Identity and Access Management (IAM) 提供的用户实体。</li>
+<li>SQS Queues（SQS 队列）：Amazon Simple Queue Service (SQS) 提供的消息队列。</li>
+<li>SNS Topics（SNS 主题）：Amazon Simple Notification Service (SNS) 提供的通知主题。</li>
+<li>Elastic Load Balancers（ELB 负载均衡器）：Elastic Load Balancing (ELB) 提供的负载均衡器实</li>
+</ul>
+<h2 id="先看看他们的JD"><a href="#先看看他们的JD" class="headerlink" title="先看看他们的JD"></a>先看看他们的JD</h2><h4 id="Job-description"><a href="#Job-description" class="headerlink" title="Job description"></a>Job description</h4><p>1、10年的开发经验，精通Node.js、TypeScript和JavaScript，熟悉其他编程语言。<br>2、熟悉软件设计模式，微服务架构、面向对象编程(OOP)、领域驱动设计(DDD)和GraphQL具备AWS Serverless开发经验，有AWS和Alibaba Cloud相关证书优先考虑。<br>4、对时间序列数据库、图数据库和DynamoDB数据库有了解，有相关经验佳。<br>5、有laC经验和CI&#x2F;CD经验佳<br>6、熟悉敏捷开发和软件开发生命周期(SDLC)</p>
+<p>面试主要提问是基于技术栈，主要问到3个方面，重要性依次递减：<br>1、大数据处理，最好有ETL经验，有ETL的概念，主要使用的是一整套AWS组件形成的ETL架构，包含组件:AWS Glue ，dynamodb，s3，datalake，redshift，athena稍微了解，他们是用外部开发了一个工具对接athena做前端展示<br>2、TypeScript，他们使用TypeScript做全套逻辑处理，包括前段react api-gateway，后端主要用cdk，调用aws组件<br>3、他们使用CircleCI，只需要有标准pipeline经验没问题</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://bzw875.github.io/2024/07/06/aws-cdk/" data-id="cmpos9eh70009g68q4qfr648q" data-title="记一段aws开发运维的工作" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/aws/" rel="tag">aws</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag">云计算</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/11/21/article_rag_intro/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          RAG 是什么
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/05/17/common-algorithm/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">常见算法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/" rel="tag">aws</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag">云计算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E5%85%A8/" rel="tag">安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-leetcode/" rel="tag">算法 leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/" rel="tag">计算机科学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%90%E7%BB%B4/" rel="tag">运维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%85%E8%AF%BB/" rel="tag">阅读</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BB%91%E5%AE%A2/" rel="tag">黑客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">云计算</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%AE%89%E5%85%A8/" style="font-size: 10px;">安全</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 10px;">性能优化</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95-leetcode/" style="font-size: 15px;">算法 leetcode</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/" style="font-size: 20px;">计算机科学</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 15px;">运维</a> <a href="/tags/%E9%98%85%E8%AF%BB/" style="font-size: 15px;">阅读</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a> <a href="/tags/%E9%BB%91%E5%AE%A2/" style="font-size: 10px;">黑客</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">九月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/11/21/article_rag_intro/">RAG 是什么</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/06/aws-cdk/">记一段aws开发运维的工作</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/17/common-algorithm/">常见算法</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/09/Writing-code-front-end/">前端面试写代码题</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/30/csapp-homework/">深入理解计算机系统（csapp）作业解答</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 小园香径<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

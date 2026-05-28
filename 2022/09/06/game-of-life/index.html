@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>JavaScript实现康威生命游戏 | 小园香径</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="演示demo生命游戏 定义康威生命游戏（英语：Conway’s Game of Life），又称康威生命棋，是英国数学家约翰·何顿·康威在1970年发明的细胞自动机。它最初于1970年10月在《科学美国人》杂志上马丁·葛登能的“数学游戏”专栏出现。 规则生命游戏中，对于任意细胞，规则如下：  每个细胞有两种状态 - 存活或死亡，每个细胞与以自身为中心的周围八格细胞产生互动（黑色为存活，白色为死亡）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript实现康威生命游戏">
+<meta property="og:url" content="https://bzw875.github.io/2022/09/06/game-of-life/index.html">
+<meta property="og:site_name" content="小园香径">
+<meta property="og:description" content="演示demo生命游戏 定义康威生命游戏（英语：Conway’s Game of Life），又称康威生命棋，是英国数学家约翰·何顿·康威在1970年发明的细胞自动机。它最初于1970年10月在《科学美国人》杂志上马丁·葛登能的“数学游戏”专栏出现。 规则生命游戏中，对于任意细胞，规则如下：  每个细胞有两种状态 - 存活或死亡，每个细胞与以自身为中心的周围八格细胞产生互动（黑色为存活，白色为死亡）">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-06T07:39:51.000Z">
+<meta property="article:modified_time" content="2022-09-06T07:39:51.000Z">
+<meta property="article:author" content="小园香径">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="小园香径" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">小园香径</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">小园香径 博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://bzw875.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-game-of-life" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/09/06/game-of-life/" class="article-date">
+  <time class="dt-published" datetime="2022-09-06T07:39:51.000Z" itemprop="datePublished">2022-09-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      JavaScript实现康威生命游戏
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="演示demo"><a href="#演示demo" class="headerlink" title="演示demo"></a>演示demo</h3><p><a target="_blank" rel="noopener" href="https://raw.githack.com/bzw875/GameOfLife/master/00.html">生命游戏</a></p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>康威生命游戏（英语：Conway’s Game of Life），又称康威生命棋，是英国数学家约翰·何顿·康威在1970年发明的细胞自动机。<br>它最初于1970年10月在《科学美国人》杂志上马丁·葛登能的“数学游戏”专栏出现。</p>
+<h3 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h3><p>生命游戏中，对于任意细胞，规则如下：</p>
+<ul>
+<li>每个细胞有两种状态 - 存活或死亡，每个细胞与以自身为中心的周围八格细胞产生互动（黑色为存活，白色为死亡）</li>
+<li>当前细胞为存活状态时，当周围的存活细胞低于2个时（不包含2个），该细胞变成死亡状态。（模拟生命数量稀少）</li>
+<li>当前细胞为存活状态时，当周围有2个或3个存活细胞时，该细胞保持原样。</li>
+<li>当前细胞为存活状态时，当周围有超过3个存活细胞时，该细胞变成死亡状态。（模拟生命数量过多）</li>
+<li>当前细胞为死亡状态时，当周围有3个存活细胞时，该细胞变成存活状态。（模拟繁殖）</li>
+</ul>
+<p>可以把最初的细胞结构定义为种子，当所有在种子中的细胞同时被以上规则处理后，可以得到第一代细胞图。按规则继续处理当前的细胞图，可以得到下一代的细胞图，周而复始。</p>
+<h3 id="规则用代码表示"><a href="#规则用代码表示" class="headerlink" title="规则用代码表示"></a>规则用代码表示</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">假如有个生命</span><br><span class="line"><span class="keyword">var</span> a = &#123; <span class="attr">x</span>: <span class="number">4</span>, <span class="attr">y</span>: <span class="number">4</span> &#125;</span><br><span class="line"><span class="comment">// 周围存活数为</span></span><br><span class="line"><span class="keyword">var</span> n = <span class="title function_">neighborLifeNumber</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当前细胞为存活状态时，当周围的存活细胞低于2个时（不包含2个），该细胞变成死亡状态。</span></span><br><span class="line"><span class="keyword">if</span> (n &lt; <span class="number">2</span> &amp;&amp; a.<span class="property">isLeft</span>) &#123;</span><br><span class="line">    a.<span class="property">isLeft</span> = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当前细胞为存活状态时，当周围有2个或3个存活细胞时，该细胞保持原样</span></span><br><span class="line"><span class="keyword">if</span> (n === <span class="number">2</span> || n === <span class="number">3</span> &amp;&amp; a.<span class="property">isLeft</span>) &#123;</span><br><span class="line">    <span class="comment">// 什么也不做</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当前细胞为存活状态时，当周围有超过3个存活细胞时，该细胞变成死亡状态。（模拟生命数量过多）</span></span><br><span class="line"><span class="keyword">if</span> (n &gt; <span class="number">3</span> &amp;&amp; a.<span class="property">isLeft</span>) &#123;</span><br><span class="line">    a.<span class="property">isLeft</span> = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 当前细胞为死亡状态时，当周围有3个存活细胞时，该细胞变成存活状态。（模拟繁殖）</span></span><br><span class="line"><span class="keyword">if</span> (n &gt;= <span class="number">3</span> &amp;&amp; !a.<span class="property">isLeft</span>) &#123;</span><br><span class="line">    a.<span class="property">isLeft</span> = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="核心算法就是"><a href="#核心算法就是" class="headerlink" title="核心算法就是"></a>核心算法就是</h3><ul>
+<li>假设现存的生命为 left</li>
+<li>根据 left 算计出邻居生命 neighbor (这里面有很多重复的生命)</li>
+<li>算出 neighbor 生命出现的次数并去重，得出 frequency</li>
+<li>从 frequency 过滤出现3次的生命得出 newLife（因为不管是死是活都会在下一轮转为活）</li>
+<li>从 frequency 过滤出现2次的生命得出 countIsTwo</li>
+<li>从 countIsTwo 、 left 算出同时出现的生命 nowlife ，这个是旧left因为有2个邻居而活下来的生命</li>
+<li>合并 newLife 、 nowlife得出下一轮活的生命</li>
+</ul>
+<h3 id="github-地址"><a href="#github-地址" class="headerlink" title="github 地址"></a>github 地址</h3><p><a target="_blank" rel="noopener" href="https://github.com/bzw875/GameOfLife">github.com&#x2F;bzw875&#x2F;GameOfLife</a></p>
+<h3 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 怎么使用</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">CellLife</span>(&#123;</span><br><span class="line">  <span class="attr">width</span>: <span class="number">100</span>, <span class="comment">// 网格宽度</span></span><br><span class="line">  <span class="attr">height</span>: <span class="number">100</span>, <span class="comment">// 网格高度</span></span><br><span class="line">  <span class="attr">initialNumber</span>: <span class="number">500</span>, <span class="comment">// 初始化生命个数</span></span><br><span class="line">  <span class="attr">cycleTime</span>: <span class="number">200</span>, <span class="comment">// 生命更新毫秒数</span></span><br><span class="line">  <span class="attr">box</span>: <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;root&#x27;</span>)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 构造类</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CellLife</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">options</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; width, height, cycleTime, initialNumber, box&#125; = options;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">width</span>     = width;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">height</span>    = height;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">cycleTime</span> = cycleTime;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">initialNumber</span> = initialNumber;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">box</span> = box;</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">life</span> = <span class="variable language_">this</span>.<span class="title function_">createCellByRandom</span>();</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">createCheckerboard</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    tick (callback) &#123;</span><br><span class="line">        <span class="keyword">var</span> newLife = <span class="variable language_">this</span>.<span class="title function_">updateCell</span>();</span><br><span class="line">        <span class="title function_">callback</span>(newLife);</span><br><span class="line">        <span class="keyword">if</span> (newLife.<span class="property">length</span> === <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="title function_">callback</span>([]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    updateCell () &#123;</span><br><span class="line">        <span class="keyword">const</span> neighbor   = <span class="variable language_">this</span>.<span class="title function_">findNeighbor</span>(<span class="variable language_">this</span>.<span class="property">life</span>);</span><br><span class="line">        <span class="keyword">const</span> frequency  = <span class="variable language_">this</span>.<span class="title function_">countFrequency</span>(neighbor, <span class="variable language_">this</span>.<span class="property">life</span>);</span><br><span class="line">        <span class="keyword">const</span> newLife    = <span class="variable language_">this</span>.<span class="title function_">filterCountIsThree</span>(frequency);</span><br><span class="line">        <span class="keyword">const</span> countIsTwo = <span class="variable language_">this</span>.<span class="title function_">filterCountIsTwo</span>(frequency);</span><br><span class="line">        <span class="keyword">const</span> nowlife    = <span class="variable language_">this</span>.<span class="title function_">mergeNewLifeAndSurvive</span>(newLife, countIsTwo, <span class="variable language_">this</span>.<span class="property">life</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">life</span> = nowlife;</span><br><span class="line">        <span class="keyword">return</span> nowlife;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    createCellByRandom () &#123;</span><br><span class="line">        <span class="keyword">const</span> life = <span class="keyword">new</span> <span class="title class_">Set</span>();</span><br><span class="line">        <span class="keyword">while</span> (life.<span class="property">size</span> &lt; <span class="variable language_">this</span>.<span class="property">initialNumber</span>) &#123;</span><br><span class="line">            life.<span class="title function_">add</span>(&#123;</span><br><span class="line">                <span class="attr">x</span>: <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="variable language_">this</span>.<span class="property">width</span>),</span><br><span class="line">                <span class="attr">y</span>: <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="variable language_">this</span>.<span class="property">height</span>)</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> [...life];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    findNeighbor (life) &#123;</span><br><span class="line">        <span class="keyword">const</span> allNeighbor = [];</span><br><span class="line">        life.<span class="title function_">forEach</span>(<span class="function"><span class="params">cell</span> =&gt;</span> allNeighbor.<span class="title function_">push</span>(...<span class="variable language_">this</span>.<span class="title function_">neighborCell</span>(cell.<span class="property">x</span>, cell.<span class="property">y</span>)));</span><br><span class="line">        <span class="keyword">return</span> allNeighbor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    neighborCell (self_x, self_y) &#123;</span><br><span class="line">        <span class="keyword">const</span> neighbor = [];</span><br><span class="line">        <span class="keyword">const</span> that = <span class="variable language_">this</span>;</span><br><span class="line">        [-<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>].<span class="title function_">forEach</span>(<span class="keyword">function</span>(<span class="params">i</span>) &#123;</span><br><span class="line">            [-<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>].<span class="title function_">forEach</span>(<span class="keyword">function</span>(<span class="params">j</span>) &#123;</span><br><span class="line">                <span class="keyword">const</span> x = self_x + i;</span><br><span class="line">                <span class="keyword">const</span> y = self_y + j;</span><br><span class="line">                <span class="keyword">if</span> (that.<span class="title function_">isValidCell</span>(x, y, self_x, self_y)) &#123;</span><br><span class="line">                    neighbor.<span class="title function_">push</span>(&#123; x, y &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> neighbor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    isValidCell (x, y, self_x, self_y) &#123;</span><br><span class="line">        <span class="keyword">return</span> x &gt;= <span class="number">0</span> &amp;&amp; y &gt;= <span class="number">0</span> &amp;&amp; x &lt; <span class="variable language_">this</span>.<span class="property">width</span> &amp;&amp; y &lt; <span class="variable language_">this</span>.<span class="property">height</span> &amp;&amp; (self_x !== x || self_y !== y);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    countFrequency (neighbor) &#123;</span><br><span class="line">        <span class="keyword">var</span> mapCell = &#123;&#125;;</span><br><span class="line">        <span class="keyword">const</span> frequency = [];</span><br><span class="line">        <span class="keyword">var</span> len = neighbor.<span class="property">length</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">var</span> ele = neighbor[i];</span><br><span class="line">            <span class="keyword">var</span> sameEle = mapCell[ele.<span class="property">x</span>+<span class="string">&#x27;&#x27;</span>+ele.<span class="property">y</span>];</span><br><span class="line">            <span class="keyword">if</span> (sameEle) &#123;</span><br><span class="line">                sameEle.<span class="property">count</span> += <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                sameEle = &#123;</span><br><span class="line">                    <span class="attr">x</span>: ele.<span class="property">x</span>,</span><br><span class="line">                    <span class="attr">y</span>: ele.<span class="property">y</span>,</span><br><span class="line">                    <span class="attr">count</span>: <span class="number">1</span></span><br><span class="line">                &#125;;</span><br><span class="line">                mapCell[ele.<span class="property">x</span>+<span class="string">&#x27;&#x27;</span>+ele.<span class="property">y</span>] = sameEle;</span><br><span class="line">                frequency.<span class="title function_">push</span>(sameEle);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        mapCell = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">return</span> frequency;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    filterCountIsThree (frequency) &#123;</span><br><span class="line">        <span class="keyword">return</span> frequency.<span class="title function_">filter</span>(<span class="function"><span class="params">cell</span> =&gt;</span> cell.<span class="property">count</span> === <span class="number">3</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    filterCountIsTwo (frequency) &#123;</span><br><span class="line">        <span class="keyword">return</span> frequency.<span class="title function_">filter</span>(<span class="function"><span class="params">cell</span> =&gt;</span> cell.<span class="property">count</span> === <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    mergeNewLifeAndSurvive (newLife, countIsTwo, life) &#123;</span><br><span class="line">        <span class="keyword">var</span> len,</span><br><span class="line">            ele,</span><br><span class="line">            mapCell = &#123;&#125;,</span><br><span class="line">            survive = [];</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">        len = life.<span class="property">length</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            ele = life[i];</span><br><span class="line">            mapCell[ele.<span class="property">x</span>+<span class="string">&#x27;&#x27;</span>+ele.<span class="property">y</span>] = ele;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">        len = countIsTwo.<span class="property">length</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            ele = countIsTwo[i];</span><br><span class="line">            <span class="keyword">if</span> (mapCell[ele.<span class="property">x</span>+<span class="string">&#x27;&#x27;</span>+ele.<span class="property">y</span>]) &#123;</span><br><span class="line">                survive.<span class="title function_">push</span>(ele);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> [...newLife, ...survive];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">createCheckerboard</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> td = <span class="keyword">new</span> <span class="title class_">Array</span>(<span class="variable language_">this</span>.<span class="property">height</span>+<span class="number">5</span>).<span class="title function_">join</span>( <span class="string">&#x27;&lt;tr&gt;&#x27;</span>+(<span class="keyword">new</span> <span class="title class_">Array</span>(<span class="variable language_">this</span>.<span class="property">width</span>+<span class="number">5</span>)).<span class="title function_">join</span>(<span class="string">&#x27;&lt;td&gt;&lt;/td&gt;&#x27;</span>)+<span class="string">&#x27;&lt;/tr&gt;&#x27;</span> );</span><br><span class="line">        <span class="keyword">var</span> table = <span class="string">&#x27;&lt;table&gt;&lt;tbody&gt;&#x27;</span>+td+<span class="string">&#x27;&lt;/tbody&gt;&lt;/table&gt;&#x27;</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">box</span>.<span class="property">innerHTML</span> = table;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> table = <span class="variable language_">this</span>.<span class="property">box</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;tbody&#x27;</span>);</span><br><span class="line">        <span class="keyword">var</span> tds = table.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;td&#x27;</span>);</span><br><span class="line">        <span class="keyword">var</span> trs = table.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;tr&#x27;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">clearInterval</span>(<span class="variable language_">this</span>.<span class="property">timer</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">timer</span> = <span class="built_in">setInterval</span>(<span class="function">()=&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="title function_">tick</span>(<span class="function"><span class="params">life</span> =&gt;</span>&#123;</span><br><span class="line">                </span><br><span class="line">                tds.<span class="title function_">forEach</span>(<span class="function">(<span class="params">ele, i</span>)=&gt;</span>&#123;</span><br><span class="line">                    ele.<span class="property">className</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">                &#125;);</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = life.<span class="property">length</span>; i &lt; len; i++) &#123;</span><br><span class="line">                    <span class="keyword">var</span> cell = life[i];</span><br><span class="line">                    trs[cell.<span class="property">y</span>+<span class="number">2</span>].<span class="property">children</span>[cell.<span class="property">x</span>+<span class="number">2</span>].<span class="property">className</span> = <span class="string">&#x27;life&#x27;</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (life.<span class="property">length</span> === <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="built_in">clearInterval</span>(<span class="variable language_">this</span>.<span class="property">timer</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">            &#125;);</span><br><span class="line">            </span><br><span class="line">        &#125;, <span class="variable language_">this</span>.<span class="property">cycleTime</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">destroy</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">box</span>.<span class="property">innerHTML</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">        <span class="built_in">clearInterval</span>(<span class="variable language_">this</span>.<span class="property">timer</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://bzw875.github.io/2022/09/06/game-of-life/" data-id="cmpos9eh8000jg68q4njp5ycp" data-title="JavaScript实现康威生命游戏" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/07/22/Algorithm-complexity/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          算法复杂度JavaScript例子
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/06/14/8-bit-float/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">8位浮点数所有值</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/" rel="tag">aws</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag">云计算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E5%85%A8/" rel="tag">安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-leetcode/" rel="tag">算法 leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/" rel="tag">计算机科学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%90%E7%BB%B4/" rel="tag">运维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%85%E8%AF%BB/" rel="tag">阅读</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BB%91%E5%AE%A2/" rel="tag">黑客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">云计算</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%AE%89%E5%85%A8/" style="font-size: 10px;">安全</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 10px;">性能优化</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95-leetcode/" style="font-size: 15px;">算法 leetcode</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/" style="font-size: 20px;">计算机科学</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 15px;">运维</a> <a href="/tags/%E9%98%85%E8%AF%BB/" style="font-size: 15px;">阅读</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a> <a href="/tags/%E9%BB%91%E5%AE%A2/" style="font-size: 10px;">黑客</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">九月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/11/21/article_rag_intro/">RAG 是什么</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/06/aws-cdk/">记一段aws开发运维的工作</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/17/common-algorithm/">常见算法</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/09/Writing-code-front-end/">前端面试写代码题</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/30/csapp-homework/">深入理解计算机系统（csapp）作业解答</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 小园香径<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

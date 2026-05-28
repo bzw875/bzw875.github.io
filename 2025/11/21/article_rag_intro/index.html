@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>RAG 是什么 | 小园香径</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="RAG 是什么 用一个真实项目，把「检索增强生成」讲清楚。   一、为什么需要 RAG大语言模型（LLM）有一个根本性的局限：它只知道训练截止日期之前的公开信息，对你的私有文档一无所知。 你的笔记、公司的内部文档、个人收藏的资料——这些东西 LLM 统统不知道。如果你把整份文档塞进对话窗口，很快就会超出上下文长度限制，而且成本也极高。 RAG（Retrieval-Augmented Generat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RAG 是什么">
+<meta property="og:url" content="https://bzw875.github.io/2025/11/21/article_rag_intro/index.html">
+<meta property="og:site_name" content="小园香径">
+<meta property="og:description" content="RAG 是什么 用一个真实项目，把「检索增强生成」讲清楚。   一、为什么需要 RAG大语言模型（LLM）有一个根本性的局限：它只知道训练截止日期之前的公开信息，对你的私有文档一无所知。 你的笔记、公司的内部文档、个人收藏的资料——这些东西 LLM 统统不知道。如果你把整份文档塞进对话窗口，很快就会超出上下文长度限制，而且成本也极高。 RAG（Retrieval-Augmented Generat">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-11-21T04:08:07.000Z">
+<meta property="article:modified_time" content="2025-11-21T07:04:24.000Z">
+<meta property="article:author" content="小园香径">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="小园香径" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">小园香径</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">小园香径 博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://bzw875.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-article_rag_intro" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/11/21/article_rag_intro/" class="article-date">
+  <time class="dt-published" datetime="2025-11-21T04:08:07.000Z" itemprop="datePublished">2025-11-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      RAG 是什么
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="RAG-是什么"><a href="#RAG-是什么" class="headerlink" title="RAG 是什么"></a>RAG 是什么</h1><blockquote>
+<p>用一个真实项目，把「检索增强生成」讲清楚。</p>
+</blockquote>
+<hr>
+<h2 id="一、为什么需要-RAG"><a href="#一、为什么需要-RAG" class="headerlink" title="一、为什么需要 RAG"></a>一、为什么需要 RAG</h2><p>大语言模型（LLM）有一个根本性的局限：<strong>它只知道训练截止日期之前的公开信息，对你的私有文档一无所知。</strong></p>
+<p>你的笔记、公司的内部文档、个人收藏的资料——这些东西 LLM 统统不知道。如果你把整份文档塞进对话窗口，很快就会超出上下文长度限制，而且成本也极高。</p>
+<p>RAG（Retrieval-Augmented Generation，检索增强生成）就是为了解决这个问题而生的：</p>
+<blockquote>
+<p><strong>先检索，后生成。</strong> 不是把所有文档喂给 LLM，而是先找到最相关的片段，只把这几段内容作为上下文，让 LLM 在此基础上回答。</p>
+</blockquote>
+<p>这个思路听起来简单，但要做好，里面有很多细节。下面我用自己写的一个真实项目——面向本地 Markdown 笔记的 RAG 问答系统——把每个环节都拆开讲清楚。</p>
+<hr>
+<h2 id="二、RAG-的两个阶段"><a href="#二、RAG-的两个阶段" class="headerlink" title="二、RAG 的两个阶段"></a>二、RAG 的两个阶段</h2><p>RAG 系统的工作分为两个完全独立的阶段：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">【离线阶段：索引】                    【在线阶段：查询】</span><br><span class="line">文档 → 分块 → 向量化 → 存入向量库     问题 → 向量化 → 检索 → 重排 → LLM 生成 → 带引用的回答</span><br></pre></td></tr></table></figure>
+
+<p>两个阶段共用同一套向量库，但时机不同：索引可以在后台静默运行、增量更新；查询则是实时响应用户提问。</p>
+<hr>
+<h2 id="三、离线阶段：把文档变成可检索的向量"><a href="#三、离线阶段：把文档变成可检索的向量" class="headerlink" title="三、离线阶段：把文档变成可检索的向量"></a>三、离线阶段：把文档变成可检索的向量</h2><h3 id="1-文件扫描与增量检测"><a href="#1-文件扫描与增量检测" class="headerlink" title="1. 文件扫描与增量检测"></a>1. 文件扫描与增量检测</h3><p>每次索引不能都全量重跑，否则代价太大。这个系统用 <strong>SHA-256 + SQLite</strong> 实现增量检测：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">文件路径 → SHA-256 哈希 → 与上次记录比较</span><br><span class="line">  ├─ 哈希相同 → 跳过</span><br><span class="line">  ├─ 哈希不同 → 标记为 modified，重新索引</span><br><span class="line">  └─ 路径消失 → 标记为 deleted，从向量库删除对应向量</span><br></pre></td></tr></table></figure>
+
+<p>SQLite 里维护了一张表，记录每个文件的路径、doc_id、sha256 和修改时间。这样文件一旦没有实质变化，哈希不变，就直接跳过，只处理真正有变化的文件。</p>
+<h3 id="2-结构化分块（Chunking）"><a href="#2-结构化分块（Chunking）" class="headerlink" title="2. 结构化分块（Chunking）"></a>2. 结构化分块（Chunking）</h3><p>把整篇文档直接向量化是不行的，因为：</p>
+<ul>
+<li>文档太长，向量会”平均化”，失去细节</li>
+<li>检索时需要精确定位到具体段落，而不是整篇文章</li>
+</ul>
+<p>分块策略采用<strong>两级切分</strong>：</p>
+<p><strong>第一级：按 Markdown 标题切分</strong></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 主标题        ← h1</span></span><br><span class="line"><span class="section">## 子章节       ← h2</span></span><br><span class="line"><span class="section">### 小节        ← h3</span></span><br></pre></td></tr></table></figure>
+
+<p>每个标题下的内容作为一个 section，同时保留标题层级信息（headings）。这样每个 chunk 都知道自己属于哪个章节。</p>
+<p><strong>第二级：对超长 section 做递归字符切分</strong></p>
+<p>设定 <code>chunk_size=700</code>，<code>chunk_overlap=100</code>。超过 700 字的 section 会被进一步切分，相邻 chunk 保留 100 字的重叠，避免语义在边界断裂。</p>
+<p>分隔符优先级：<code>\n\n</code> &gt; <code>\n</code> &gt; 中文句号 &gt; 英文句号 &gt; 空格。</p>
+<p>每个最终的 chunk 携带这些元数据：</p>
+<ul>
+<li><code>doc_id</code>：文档的唯一 ID（由文件路径 sha256 派生，稳定不变）</li>
+<li><code>chunk_id</code>：<code>doc_id#序号</code></li>
+<li><code>path</code>：文件相对路径</li>
+<li><code>title</code>：文档标题</li>
+<li><code>headings</code>：所在的标题层级路径，如 <code>[&quot;RAG系统&quot;, &quot;检索&quot;, &quot;重排&quot;]</code></li>
+<li><code>tags</code>：从 YAML Front Matter 读取的标签</li>
+</ul>
+<h3 id="3-向量化（Embedding）"><a href="#3-向量化（Embedding）" class="headerlink" title="3. 向量化（Embedding）"></a>3. 向量化（Embedding）</h3><p>每个 chunk 的文本内容被送入 Embedding 模型，转换为一个高维向量（本项目用 Ollama 本地运行 <code>nomic-embed-text</code>，维度 768）。</p>
+<p>向量的本质：<strong>把语义相近的文本映射到空间中相近的位置。</strong> “苹果手机” 和 “iPhone” 在向量空间里距离很近，即使字面完全不同。</p>
+<h3 id="4-存入向量库（Qdrant）"><a href="#4-存入向量库（Qdrant）" class="headerlink" title="4. 存入向量库（Qdrant）"></a>4. 存入向量库（Qdrant）</h3><p>向量和对应的 payload（元数据）一起存入 Qdrant。Qdrant 使用 <strong>HNSW</strong>（Hierarchical Navigable Small World）索引结构，能在毫秒级完成近似最近邻搜索。</p>
+<p>为了加速过滤，对 <code>doc_id</code>、<code>tags</code>、<code>mtime</code> 字段建立了 Payload 索引，支持按标签或时间范围预过滤后再做向量搜索。</p>
+<hr>
+<h2 id="四、在线阶段：从提问到带引用的回答"><a href="#四、在线阶段：从提问到带引用的回答" class="headerlink" title="四、在线阶段：从提问到带引用的回答"></a>四、在线阶段：从提问到带引用的回答</h2><h3 id="1-问题向量化"><a href="#1-问题向量化" class="headerlink" title="1. 问题向量化"></a>1. 问题向量化</h3><p>用户的问题同样用相同的 Embedding 模型转换为向量。<strong>必须用同一个模型</strong>，否则问题向量和文档向量不在同一个语义空间里，检索会乱套。</p>
+<h3 id="2-向量检索（Retrieve）"><a href="#2-向量检索（Retrieve）" class="headerlink" title="2. 向量检索（Retrieve）"></a>2. 向量检索（Retrieve）</h3><p>拿着问题向量去 Qdrant 做余弦相似度搜索，召回 top_k&#x3D;50 个最相似的 chunk。</p>
+<p>余弦相似度衡量的是<strong>方向的接近程度</strong>，而不是向量的长度。两个向量夹角越小，cosine 值越接近 1，语义越相近。</p>
+<h3 id="3-重排（Rerank）"><a href="#3-重排（Rerank）" class="headerlink" title="3. 重排（Rerank）"></a>3. 重排（Rerank）</h3><p>向量检索召回的 50 个结果里，有些虽然向量相似度高，但实际上并不精确匹配用户的问题。重排做二次筛选。</p>
+<p>当前实现是一个轻量的关键词重排：统计问题中每个词在 chunk 内容里出现的次数，得分越高排越靠前，最终只保留 top_n&#x3D;5 个。</p>
+<p>这是一个 MVP 实现。生产系统通常会接入真实的 Cross-Encoder 重排模型（如 <code>bge-reranker-v2-m3</code>），效果显著更好，但速度也更慢、成本更高。</p>
+<h3 id="4-LLM-生成"><a href="#4-LLM-生成" class="headerlink" title="4. LLM 生成"></a>4. LLM 生成</h3><p>把 5 个 chunk 的内容拼装成上下文，连同用户问题一起送给 LLM：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">你是一个Markdown笔记问答助手。请严格依据提供的上下文回答。</span><br><span class="line">如果上下文不足，请明确说不知道。</span><br><span class="line">回答后必须给出引用，格式为[path#heading]。</span><br><span class="line"></span><br><span class="line">问题: &#123;query&#125;</span><br><span class="line"></span><br><span class="line">上下文:</span><br><span class="line">[notes/rag.md#检索]</span><br><span class="line">检索阶段负责从向量库中...</span><br><span class="line"></span><br><span class="line">[notes/llm.md#提示词工程]</span><br><span class="line">提示词的质量直接影响...</span><br></pre></td></tr></table></figure>
+
+<p>LLM 被明确要求：<strong>只能依据提供的上下文回答，不能乱编；如果上下文不够，必须说不知道。</strong> 这个约束极为重要，是 RAG 减少幻觉的核心机制。</p>
+<h3 id="5-返回带引用的回答"><a href="#5-返回带引用的回答" class="headerlink" title="5. 返回带引用的回答"></a>5. 返回带引用的回答</h3><p>最终输出是结构化的 JSON：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;answer&quot;</span><span class="punctuation">:</span> <span class="string">&quot;RAG 系统的检索阶段分为向量检索和重排两步...&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;citations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;notes/rag.md&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;heading&quot;</span><span class="punctuation">:</span> <span class="string">&quot;检索&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;snippet&quot;</span><span class="punctuation">:</span> <span class="string">&quot;检索阶段负责从向量库中找到...&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>每条引用精确到 <code>文件路径#标题</code> 级别，用户可以直接追溯原始笔记，验证回答是否准确。</p>
+<hr>
+<h2 id="五、完整链路回顾"><a href="#五、完整链路回顾" class="headerlink" title="五、完整链路回顾"></a>五、完整链路回顾</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">【索引时】</span><br><span class="line">Markdown 文件</span><br><span class="line">  ↓ SHA-256 增量检测（SQLite）</span><br><span class="line">  ↓ 按标题分块 + 递归字符切分</span><br><span class="line">  ↓ Embedding（nomic-embed-text / 768维）</span><br><span class="line">  ↓ 存入 Qdrant（HNSW 索引 + Payload 索引）</span><br><span class="line"></span><br><span class="line">【查询时】</span><br><span class="line">用户提问</span><br><span class="line">  ↓ Embedding（同一模型）</span><br><span class="line">  ↓ 向量检索 top_k=50（余弦相似度）</span><br><span class="line">  ↓ 关键词重排 → top_n=5</span><br><span class="line">  ↓ 拼装 Prompt → LLM（MiniMax / Claude）</span><br><span class="line">  ↓ 结构化输出：回答 + path#heading 引用</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="六、RAG-的边界与局限"><a href="#六、RAG-的边界与局限" class="headerlink" title="六、RAG 的边界与局限"></a>六、RAG 的边界与局限</h2><p>RAG 不是万能药，有几个天然的局限需要清醒认识：</p>
+<p><strong>1. 检索质量决定生成质量</strong><br>“Garbage in, garbage out”。如果检索阶段没有找到相关内容，LLM 无论多聪明也无法给出好答案。Embedding 模型的质量、分块策略、召回数量都直接影响最终效果。</p>
+<p><strong>2. 跨文档推理很难</strong><br>“综合我所有笔记，总结出一个结论” 这类需要跨多文档全局推理的问题，RAG 效果有限。它更擅长的是”找到相关段落，在此基础上回答”。</p>
+<p><strong>3. 实体关系理解弱</strong><br>向量相似度捕捉的是语义相近，但对于”A 和 B 是什么关系”这类结构性问题，Graph RAG（知识图谱 + 向量混合）会更合适。</p>
+<p><strong>4. 分块粒度难以完美</strong><br>块太大，向量被稀释，精度下降；块太小，单块缺少上下文，生成时 LLM 信息不足。需要针对具体场景调参，没有通用答案。</p>
+<hr>
+<h2 id="七、可以继续扩展的方向"><a href="#七、可以继续扩展的方向" class="headerlink" title="七、可以继续扩展的方向"></a>七、可以继续扩展的方向</h2><p>这个项目是 MVP，后续有几个方向可以显著提升效果：</p>
+<ul>
+<li><strong>真实 Reranker</strong>：接入 <code>bge-reranker-v2-m3</code> 等 Cross-Encoder 模型，比关键词匹配准确得多</li>
+<li><strong>Multi-Query 检索</strong>：让 LLM 把原始问题改写为多个角度的子问题，分别检索后合并，提高召回率</li>
+<li><strong>Hybrid Search</strong>：向量检索（dense）+ BM25 关键词检索（sparse）结合，互补彼此的盲区</li>
+<li><strong>Parent Document Retriever</strong>：存储细粒度 chunk 用于检索，但把父级大块文本喂给 LLM，兼顾精度与上下文完整性</li>
+<li><strong>知识图谱（Graph RAG）</strong>：提取实体和关系，支持跨文档的结构性推理</li>
+</ul>
+<hr>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>RAG 的核心思想只有一句话：<strong>不要把所有东西塞给 LLM，而是先找到最相关的内容，只把这些内容作为上下文。</strong></p>
+<p>围绕这句话，展开了一套工程体系：增量索引、结构化分块、向量化、近似最近邻搜索、重排、Prompt 约束、引用溯源。每个环节都有工程取舍，每个环节的质量都影响最终体验。</p>
+<p>RAG 本质上是一个<strong>信息检索问题 + 生成问题的结合体</strong>。做好它，需要同时理解这两个领域——这也是它有趣的地方。</p>
+<hr>
+<p><em>本文基于作者实际开发的 <a target="_blank" rel="noopener" href="https://github.com/">rag_notes</a> 项目，技术栈：LangChain + Qdrant + Ollama + MiniMax。</em></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://bzw875.github.io/2025/11/21/article_rag_intro/" data-id="cmpos9eh60005g68q3cy9frq2" data-title="RAG 是什么" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2024/07/06/aws-cdk/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">记一段aws开发运维的工作</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/" rel="tag">aws</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag">云计算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E5%85%A8/" rel="tag">安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-leetcode/" rel="tag">算法 leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/" rel="tag">计算机科学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%90%E7%BB%B4/" rel="tag">运维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%85%E8%AF%BB/" rel="tag">阅读</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BB%91%E5%AE%A2/" rel="tag">黑客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">云计算</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%AE%89%E5%85%A8/" style="font-size: 10px;">安全</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 10px;">性能优化</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95-leetcode/" style="font-size: 15px;">算法 leetcode</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/" style="font-size: 20px;">计算机科学</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 15px;">运维</a> <a href="/tags/%E9%98%85%E8%AF%BB/" style="font-size: 15px;">阅读</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a> <a href="/tags/%E9%BB%91%E5%AE%A2/" style="font-size: 10px;">黑客</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">九月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/11/21/article_rag_intro/">RAG 是什么</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/06/aws-cdk/">记一段aws开发运维的工作</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/17/common-algorithm/">常见算法</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/09/Writing-code-front-end/">前端面试写代码题</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/30/csapp-homework/">深入理解计算机系统（csapp）作业解答</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 小园香径<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

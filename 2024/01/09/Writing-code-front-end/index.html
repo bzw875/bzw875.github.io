@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>前端面试写代码题 | 小园香径</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="修改console.log前面加上时间戳12345678910(function()&#123;    const oldLog &#x3D; console.log;    console.log &#x3D; function(...arr)&#123;        arr.unshift((new Date()).toISOString())        oldLog.apply(console, arr)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端面试写代码题">
+<meta property="og:url" content="https://bzw875.github.io/2024/01/09/Writing-code-front-end/index.html">
+<meta property="og:site_name" content="小园香径">
+<meta property="og:description" content="修改console.log前面加上时间戳12345678910(function()&#123;    const oldLog &#x3D; console.log;    console.log &#x3D; function(...arr)&#123;        arr.unshift((new Date()).toISOString())        oldLog.apply(console, arr)">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-01-09T08:00:24.000Z">
+<meta property="article:modified_time" content="2024-01-09T08:00:24.000Z">
+<meta property="article:author" content="小园香径">
+<meta property="article:tag" content="面试题">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="小园香径" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">小园香径</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">小园香径 博客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://bzw875.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Writing-code-front-end" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/01/09/Writing-code-front-end/" class="article-date">
+  <time class="dt-published" datetime="2024-01-09T08:00:24.000Z" itemprop="datePublished">2024-01-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      前端面试写代码题
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="修改console-log前面加上时间戳"><a href="#修改console-log前面加上时间戳" class="headerlink" title="修改console.log前面加上时间戳"></a>修改console.log前面加上时间戳</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">const</span> oldLog = <span class="variable language_">console</span>.<span class="property">log</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="property">log</span> = <span class="keyword">function</span>(<span class="params">...arr</span>)&#123;</span><br><span class="line">        arr.<span class="title function_">unshift</span>((<span class="keyword">new</span> <span class="title class_">Date</span>()).<span class="title function_">toISOString</span>())</span><br><span class="line">        oldLog.<span class="title function_">apply</span>(<span class="variable language_">console</span>, arr);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1.1</span>,<span class="string">&#x27;2&#x27;</span>, <span class="literal">null</span>, &#123;<span class="attr">a</span>:<span class="number">33</span>&#125;)</span><br><span class="line"><span class="comment">// 2024-08-22T02:09:53.124Z 1.1 2 null &#123;a: 33&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="数组转成树形层级"><a href="#数组转成树形层级" class="headerlink" title="数组转成树形层级"></a>数组转成树形层级</h2><h4 id="非递归解法算法复杂度2n"><a href="#非递归解法算法复杂度2n" class="headerlink" title="非递归解法算法复杂度2n"></a>非递归解法算法复杂度2n</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">toTree</span>(<span class="params">arr</span>)&#123;</span><br><span class="line">    <span class="keyword">const</span> idMap = &#123;&#125;; <span class="comment">// 所有节点</span></span><br><span class="line">    <span class="keyword">const</span> childMap = &#123;&#125;; <span class="comment">// 所有子节点</span></span><br><span class="line">    arr.<span class="title function_">forEach</span>(<span class="function">(<span class="params">item</span>)=&gt;</span> &#123;</span><br><span class="line">        idMap[item.<span class="property">id</span>] = item;</span><br><span class="line">        <span class="keyword">if</span> (item.<span class="property">parentId</span>) &#123;</span><br><span class="line">            childMap[item.<span class="property">parentId</span>] = childMap[item.<span class="property">parentId</span>] || [];</span><br><span class="line">            childMap[item.<span class="property">parentId</span>].<span class="title function_">push</span>(item);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    arr.<span class="title function_">forEach</span>(<span class="function">(<span class="params">item</span>)=&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (item.<span class="property">parentId</span>) &#123;</span><br><span class="line">            idMap[item.<span class="property">parentId</span>].<span class="property">children</span> = childMap[item.<span class="property">parentId</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> arr.<span class="title function_">filter</span>(<span class="function"><span class="params">item</span> =&gt;</span> item.<span class="property">parentId</span> === <span class="literal">null</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> arr = [</span><br><span class="line">    &#123; <span class="attr">id</span>: <span class="number">5</span>, <span class="attr">name</span>: <span class="string">&#x27;node 5&#x27;</span>, <span class="attr">parentId</span>: <span class="literal">null</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">id</span>: <span class="number">4</span>, <span class="attr">name</span>: <span class="string">&#x27;node 4&#x27;</span>, <span class="attr">parentId</span>: <span class="number">2</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">id</span>: <span class="number">3</span>, <span class="attr">name</span>: <span class="string">&#x27;node 3&#x27;</span>, <span class="attr">parentId</span>: <span class="number">4</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">id</span>: <span class="number">2</span>, <span class="attr">name</span>: <span class="string">&#x27;node 2&#x27;</span>, <span class="attr">parentId</span>: <span class="number">5</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">id</span>: <span class="number">1</span>, <span class="attr">name</span>: <span class="string">&#x27;node 1&#x27;</span>, <span class="attr">parentId</span>: <span class="literal">null</span> &#125;</span><br><span class="line">];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="title function_">toTree</span>(arr), <span class="literal">null</span>, <span class="number">2</span>));</span><br><span class="line"><span class="comment">// 打印</span></span><br><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">&quot;id&quot;</span>: <span class="number">5</span>,</span><br><span class="line">    <span class="string">&quot;name&quot;</span>: <span class="string">&quot;node 5&quot;</span>,</span><br><span class="line">    <span class="string">&quot;parentId&quot;</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="string">&quot;children&quot;</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">&quot;id&quot;</span>: <span class="number">2</span>,</span><br><span class="line">        <span class="string">&quot;name&quot;</span>: <span class="string">&quot;node 2&quot;</span>,</span><br><span class="line">        <span class="string">&quot;parentId&quot;</span>: <span class="number">5</span>,</span><br><span class="line">        <span class="string">&quot;children&quot;</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="string">&quot;id&quot;</span>: <span class="number">4</span>,</span><br><span class="line">            <span class="string">&quot;name&quot;</span>: <span class="string">&quot;node 4&quot;</span>,</span><br><span class="line">            <span class="string">&quot;parentId&quot;</span>: <span class="number">2</span>,</span><br><span class="line">            <span class="string">&quot;children&quot;</span>: [</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="string">&quot;id&quot;</span>: <span class="number">3</span>,</span><br><span class="line">                <span class="string">&quot;name&quot;</span>: <span class="string">&quot;node 3&quot;</span>,</span><br><span class="line">                <span class="string">&quot;parentId&quot;</span>: <span class="number">4</span></span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">&quot;id&quot;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">&quot;name&quot;</span>: <span class="string">&quot;node 1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;parentId&quot;</span>: <span class="literal">null</span></span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="while循环解法"><a href="#while循环解法" class="headerlink" title="while循环解法"></a>while循环解法</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">toTree</span>(<span class="params">arr</span>)&#123;</span><br><span class="line">    <span class="keyword">const</span> parentNode = arr.<span class="title function_">filter</span>(<span class="function"><span class="params">tmp</span> =&gt;</span> tmp.<span class="property">parentId</span> === <span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">const</span> other = arr.<span class="title function_">filter</span>(<span class="function"><span class="params">tmp</span> =&gt;</span> tmp.<span class="property">parentId</span> !== <span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> max = arr.<span class="property">length</span>*<span class="number">100</span>;</span><br><span class="line">    <span class="keyword">while</span>(other.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> tmp = other[i];</span><br><span class="line">        <span class="keyword">const</span> p = <span class="title function_">findParent</span>(parentNode, tmp.<span class="property">parentId</span>)</span><br><span class="line">        <span class="keyword">if</span> (p) &#123;</span><br><span class="line">            p.<span class="property">children</span> = p.<span class="property">children</span> || [];</span><br><span class="line">            p.<span class="property">children</span>.<span class="title function_">push</span>(tmp);</span><br><span class="line">            other.<span class="title function_">splice</span>(i, <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (i &gt;= other.<span class="property">length</span> - <span class="number">1</span>) &#123;</span><br><span class="line">            i = <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        max--;</span><br><span class="line">        <span class="keyword">if</span> (max === <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span>(<span class="string">&quot;parentId not found: &quot;</span> + tmp.<span class="property">parentId</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> parentNode;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">findParent</span>(<span class="params">arr, parentId</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.<span class="property">length</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">const</span> tmp = arr[i];</span><br><span class="line">        <span class="keyword">if</span> (tmp.<span class="property">id</span> === parentId) &#123;</span><br><span class="line">            <span class="keyword">return</span> tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (tmp.<span class="property">children</span>) &#123;</span><br><span class="line">            <span class="keyword">const</span> loop = <span class="title function_">findParent</span>(tmp.<span class="property">children</span>, parentId);</span><br><span class="line">            <span class="keyword">if</span> (loop) &#123;</span><br><span class="line">                <span class="keyword">return</span> loop;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://bzw875.github.io/2024/01/09/Writing-code-front-end/" data-id="cmpos9eh60008g68qartv7nr6" data-title="前端面试写代码题" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/05/17/common-algorithm/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          常见算法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/12/30/csapp-homework/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">深入理解计算机系统（csapp）作业解答</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aws/" rel="tag">aws</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag">云计算</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%89%E5%85%A8/" rel="tag">安全</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95-leetcode/" rel="tag">算法 leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/" rel="tag">计算机科学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%90%E7%BB%B4/" rel="tag">运维</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%85%E8%AF%BB/" rel="tag">阅读</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BB%91%E5%AE%A2/" rel="tag">黑客</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/aws/" style="font-size: 10px;">aws</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" style="font-size: 10px;">云计算</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 10px;">前端</a> <a href="/tags/%E5%AE%89%E5%85%A8/" style="font-size: 10px;">安全</a> <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 10px;">性能优化</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E7%AE%97%E6%B3%95-leetcode/" style="font-size: 15px;">算法 leetcode</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">网络</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/" style="font-size: 20px;">计算机科学</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 15px;">运维</a> <a href="/tags/%E9%98%85%E8%AF%BB/" style="font-size: 15px;">阅读</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 10px;">面试题</a> <a href="/tags/%E9%BB%91%E5%AE%A2/" style="font-size: 10px;">黑客</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">十二月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">八月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">七月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">九月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">七月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/11/21/article_rag_intro/">RAG 是什么</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/06/aws-cdk/">记一段aws开发运维的工作</a>
+          </li>
+        
+          <li>
+            <a href="/2024/05/17/common-algorithm/">常见算法</a>
+          </li>
+        
+          <li>
+            <a href="/2024/01/09/Writing-code-front-end/">前端面试写代码题</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/30/csapp-homework/">深入理解计算机系统（csapp）作业解答</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 小园香径<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
